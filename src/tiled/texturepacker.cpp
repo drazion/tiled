@@ -94,7 +94,7 @@ bool TexturePacker::pack(const TexturePackSettings &settings)
             const int TILE_HEIGHT = mImageTileSize[str].height() * (mSettings.mScale50 ? 0.5f : 1);
             QList<TileDefTileset*> tileDefTilesets;
             QString tilesetName = QFileInfo(str).baseName();
-            for (const QSharedPointer<TileDefFile> &tileDefFile : std::as_const(tileDefFiles)) {
+            for (const QSharedPointer<TileDefFile> &tileDefFile : qAsConst(tileDefFiles)) {
                 if (TileDefTileset *tdts = tileDefFile->tileset(tilesetName)) {
                     tileDefTilesets += tdts;
                 }
@@ -789,7 +789,7 @@ bool TexturePacker::LoadTileNamesFile(QString imageName, int columns)
             continue;
         if (line.startsWith(QLatin1String("//")))
             continue;
-        QStringList ss = line.split(re, Qt::SkipEmptyParts);
+        QStringList ss = line.split(re, QString::SkipEmptyParts);
         if (ss.size() != 3) {
             mError = tr("\"col row name\" expected on line %1\n%2").arg(lineNumber).arg(imageName);
             return false;
@@ -814,11 +814,10 @@ bool TexturePacker::LoadTileNamesFile(QString imageName, int columns)
 
 bool TexturePacker::isSolidFloor(const QList<TileDefTileset *> &tilesets, int tileID) const
 {
-    static const QString FloorOverlay = QStringLiteral("FloorOverlay");
-    static const QString solidfloor = QStringLiteral("solidfloor");
+    QString solidfloor = QStringLiteral("solidfloor");
     for (TileDefTileset *tdts : tilesets) {
         if (TileDefTile *tdt = tdts->tileAt(tileID)) {
-            if (tdt->mProperties.contains(FloorOverlay) || tdt->mProperties.contains(solidfloor)) {
+            if (tdt->mProperties.contains(solidfloor)) {
                 return true;
             }
         }

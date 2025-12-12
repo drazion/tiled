@@ -367,7 +367,7 @@ bool PackSettingsFile::read(const QString &fileName)
 
     QDir dir = QFileInfo(fileName).absoluteDir();
 
-    for (const SimpleFileBlock &block : std::as_const(simple.blocks)) {
+    for (const SimpleFileBlock &block : qAsConst(simple.blocks)) {
         if (block.name == QLatin1String("settings")) {
             mSettings.mPackFileName = QDir::cleanPath(dir.filePath(block.value("packFileName")));
 
@@ -382,7 +382,7 @@ bool PackSettingsFile::read(const QString &fileName)
             QString scaleStr = block.value("scale50");
             mSettings.mScale50 = (scaleStr == QStringLiteral("true"));
 
-            for (const SimpleFileBlock &block2 : std::as_const(block.blocks)) {
+            for (const SimpleFileBlock &block2 : qAsConst(block.blocks)) {
                 if (block2.name == QLatin1String("inputImageDirectory")) {
                     TexturePackSettings::Directory tpd;
                     tpd.mPath = QDir::cleanPath(dir.filePath(block2.value("path")));
@@ -477,7 +477,7 @@ bool PackSettingsFile::write(const QString &fileName)
 
 bool PackSettingsFile::stringToSize(const QString &s, QSize &result)
 {
-    QStringList split = s.split(QLatin1Char(','), Qt::SkipEmptyParts);
+    QStringList split = s.split(QLatin1Char(','), QString::SkipEmptyParts);
     if (split.size() != 2) {
         mError = tr("expected w,h but got '%1'").arg(s);
         return false;
@@ -486,4 +486,3 @@ bool PackSettingsFile::stringToSize(const QString &s, QSize &result)
     result.setHeight(split[1].toInt());
     return true;
 }
-

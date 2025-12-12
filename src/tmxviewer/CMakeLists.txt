@@ -1,5 +1,5 @@
 project( tmxviewer )
-cmake_minimum_required( VERSION 2.6 )
+cmake_minimum_required(VERSION 3.5)
 set ( CMAKE_BUILD_TYPE Release )
 #add_definitions ( -Wall )
 find_package ( Qt4 REQUIRED )

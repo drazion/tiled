@@ -75,10 +75,10 @@ private:
         return lhs.x() + lhs.y() < rhs.x() + rhs.y();
     }
 
-    int PackingAreaWidth;
     int PackingAreaHeight;
-    int actualPackingAreaWidth;
+    int PackingAreaWidth;
     int actualPackingAreaHeight;
+    int actualPackingAreaWidth;
     QList<QPoint> anchors;
     QList<QRect> packedRectangles;
 };

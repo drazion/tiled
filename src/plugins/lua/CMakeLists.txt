@@ -1,4 +1,4 @@
-cmake_minimum_required( VERSION 2.6 )
+cmake_minimum_required(VERSION 3.5)
 set ( CMAKE_BUILD_TYPE Release )
 #add_definitions ( -Wall )
 add_definitions(-DLUA_LIBRARY ${QT_DEFINITIONS} -DQT_PLUGIN -DQT_SHARED)
