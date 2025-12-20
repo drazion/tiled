@@ -22,7 +22,7 @@
 #include "BuildingEditor/templatedocument.h"
 #include <QDialog>
 #include <QMap>
-
+#include <QUndoGroup>
 #include <set>
 
 class QListWidgetItem;
